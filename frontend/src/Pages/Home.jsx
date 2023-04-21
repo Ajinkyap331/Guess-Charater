@@ -1,6 +1,8 @@
 import React from "react";
 import { Navbar } from "../Components/Navbar";
 import { useState } from "react";
+import { Timer } from "../Components/Timer";
+import { PlayArea } from "../Components/PlayArea";
 
 export const Home = () => {
   const [startGame, setStartGame] = useState(true);
@@ -10,7 +12,15 @@ export const Home = () => {
       <Navbar />
       <div className="flex">
         <section className="w-2/5 h-[calc(100vh-70px)] grid place-items-center">
-          <div className="text-white text-3xl">Try to Guess The Character</div>
+          {startGame ? (
+            <>
+              <div className="text-white text-3xl">Try to Guess The Movie</div>
+            </>
+          ) : (
+            <>
+              <Timer />
+            </>
+          )}
         </section>
         <section className="w-3/5 h-[calc(100vh-70px)] grid place-items-center">
           {startGame ? (
@@ -24,7 +34,9 @@ export const Home = () => {
             </>
           ) : (
             <>
-              <div className="bg-white h-3/5 w-2/5 rounded-xl border-2 border-indigo-600"></div>
+              <div className="bg-white h-3/5 w-2/5 rounded-xl border-2 border-indigo-600">
+                <PlayArea />
+              </div>
             </>
           )}
         </section>
