@@ -7,7 +7,7 @@ import { useStateValue } from "./context/StateProvider";
 import { actionType } from "./context/reducer";
 import { Home } from "./Pages/Home";
 import { Login } from "./Pages/Login";
-
+import { Dashboard } from "./Components/Dashboard";
 function App() {
   const firebaseAuth = getAuth(app);
   const navigate = useNavigate();
@@ -22,9 +22,7 @@ function App() {
     firebaseAuth.onAuthStateChanged((e) => {
       if (e) {
         e.getIdToken().then((token) => {
-          // console.log(token);
           validateUser(token).then((data) => {
-            console.log(data);
             dispatch({
               type: actionType.SET_USER,
               user: data,
@@ -44,6 +42,9 @@ function App() {
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/login" element={<Login setAuth={setAuth} />} />
+      {user && user.user.email === "devmanwar305@gmail.com" && (
+        <Route path="/dashboard/*" element={<Dashboard />} />
+      )}
     </Routes>
   );
 }

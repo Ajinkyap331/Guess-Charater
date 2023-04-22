@@ -17,7 +17,7 @@ export const Login = ({ setAuth }) => {
 
   const loginWithGoogle = async () => {
     await signInWithPopup(firebaseAuth, provider).then((userCred) => {
-      console.log(userCred);
+     
       if (userCred) {
         setAuth(true);
         window.localStorage.setItem("authMovie", "true");
@@ -26,7 +26,7 @@ export const Login = ({ setAuth }) => {
           if (userCred) {
             navigate("/", { replace: true });
             userAuth.getIdToken().then((token) => {
-              console.log("Token: ", token);
+            
               validateUser(token).then((data) => {
                 dispatch({
                   type: actionType.SET_USER,

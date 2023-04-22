@@ -9,7 +9,15 @@ export const Success = ({ showsuccess, setsuccess }) => {
           status="success"
           title="Guessed the Character Correctly"
           subTitle={`Your Guessed Movie is : ${showsuccess}`}
-          extra={[<Button onClick={() => setsuccess(false)}>Close</Button>]}
+          extra={[
+            <Button
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              Close
+            </Button>,
+          ]}
         />
       </div>
     </div>

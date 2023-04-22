@@ -3,4 +3,8 @@ export const initialState = {
   allUsers: null,
   allMovies: null,
   movie: null,
+  allMoviesDetails: null,
+  hintsUsed: 0,
+  guessedtimes: 0,
+  alertType: null,
 };

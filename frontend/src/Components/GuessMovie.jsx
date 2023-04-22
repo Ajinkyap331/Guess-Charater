@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "antd";
-import { Select } from "antd";
+import { Select, message } from "antd";
 import { Movies } from "../models";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
 export const GuessMovie = ({ setsuccess }) => {
+  const [{ allMovies, movie, guessedtimes }, dispatch] = useStateValue();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   let selectedmovie = "";
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    setsuccess(selectedmovie);
+    dispatch({
+      type: actionType.SET_GUESSED_TIMES,
+      guessedtimes: guessedtimes + 1,
+    });
+    if (movie.movie_name === selectedmovie) {
+      setsuccess(selectedmovie);
+    } else message.error("Wrong guess");
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    return () => {
-      alert("Destrctor called");
-    };
-  }, []);
 
   return (
     <div>
@@ -56,10 +60,10 @@ export const GuessMovie = ({ setsuccess }) => {
           filterOption={(input, option) =>
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }
-          options={Movies.map((movie) => {
+          options={allMovies.map((movie) => {
             return {
-              value: movie,
-              label: movie,
+              value: movie.movie_name,
+              label: movie.movie_name,
             };
           })}
         />

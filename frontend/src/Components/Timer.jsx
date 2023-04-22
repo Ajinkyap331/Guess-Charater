@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
 export const Timer = () => {
+  const [{ hintsUsed, guessedtimes }, dispatch] = useStateValue();
   const timerref = useRef();
 
   useEffect(() => {
@@ -12,7 +15,13 @@ export const Timer = () => {
   }, []);
   return (
     <div>
-      <div className="text-white text-3xl" ref={timerref}>Starting Timer...</div>
+      <div className="text-white text-3xl" ref={timerref}>
+        Starting Timer...
+      </div>
+      <div className="text-white text-3xl">Hints Asked : {hintsUsed}</div>
+      <div className="text-white text-3xl">
+        No. of Times Guessed : {guessedtimes}
+      </div>
     </div>
   );
 };

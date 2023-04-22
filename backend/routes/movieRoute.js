@@ -6,6 +6,7 @@ const movie = require("../models/moviesModel");
 router.post("/save", async (req, res) => {
   const newMovie = new movie({
     name: req.body.name,
+    imageURL: req.body.imageURL,
   });
 
   try {
@@ -46,7 +47,7 @@ router.put("/update/:id", async (req, res) => {
     upsert: true,
     new: true,
   };
-  if (req.body.name === "") {
+  if (req.body.name === "" && req.body.imageURL === "") {
     return res
       .status(400)
       .send({ success: false, msg: "please provide name of the movie" });
@@ -56,7 +57,8 @@ router.put("/update/:id", async (req, res) => {
     const result = await movie.findOneAndUpdate(
       filter,
       {
-        name: req.body.name === "" ? movie.name : req.body.name,
+        name: req.body.name,
+        imageURL: req.body.imageURL,
       },
       options
     );

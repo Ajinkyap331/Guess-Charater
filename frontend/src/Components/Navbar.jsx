@@ -29,8 +29,13 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center w-full p-4 md:py-2 md:px-6 ">
-      <div className="flex flex-row p-3 gap-4 text-4xl text-white font-serif ">
+    <header className="flex items-center w-full p-2 bg-black">
+      <div
+        className="flex flex-row cursor-pointer gap-4 text-4xl text-white font-serif "
+        onClick={() => {
+          navigate("/", { replace: true });
+        }}
+      >
         <img src={Loogo} alt="Logo" className="w-12" />
         <p>One-Movie</p>
       </div>
@@ -47,7 +52,7 @@ export const Navbar = () => {
           referrerPolicy="no-referrer"
         />
         <div className="flex flex-col">
-          <p className=" text-lg p-4 hover:text-headingColor font-semibold text-gray-200">
+          <p className=" text-lg px-4 py-2 hover:text-headingColor font-semibold text-gray-200">
             {user?.user?.name}
           </p>
         </div>
@@ -57,16 +62,15 @@ export const Navbar = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="absolute z-10 top-12 right-0 w-225 p-4 gap-4 bg-card shadow-lg rounded-lg backdrop-blur-sm flex flex-col"
+            className="absolute z-10 top-12 right-8 w-225 p-4 gap-4 bg-white bg-card shadow-lg rounded-lg backdrop-blur-sm flex flex-col"
           >
-            {/* {user?.user?.role === "admin" && (
+            {user?.user?.email === "devmanwar305@gmail.com" && (
               <NavLink to={"/dashboard/home"}>
                 <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
                   Dashboard
                 </p>
               </NavLink>
-            )} */}
-
+            )}
             <p
               className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out"
               onClick={logOut}

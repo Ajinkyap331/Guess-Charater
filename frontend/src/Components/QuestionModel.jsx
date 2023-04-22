@@ -1,19 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Modal, Button } from "antd";
 import { Select } from "antd";
 import { Questions } from "../models";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
+import { notification } from "antd";
 
 export const QuestionModel = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [{ hintsUsed, movie }, dispatch] = useStateValue();
+
+  let questionno = -1;
+
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
+    dispatch({
+      type: actionType.SET_HINT_USED,
+      hintsUsed: hintsUsed + 1,
+    });
+    openNotification();
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const openNotification = () => {
+    notification.open({
+      message: movie.options[questionno].question,
+      description: movie.options[questionno].answer,
+    });
+  };
+
   return (
     <div>
       <button
@@ -28,10 +48,9 @@ export const QuestionModel = () => {
         onCancel={handleCancel}
         footer={[
           <Button
-            key="cancel"
-            // onClick={() => {
-            //   handleCancel();
-            // }}
+            onClick={() => {
+              handleOk();
+            }}
           >
             Ask
           </Button>,
@@ -43,15 +62,15 @@ export const QuestionModel = () => {
           showSearch
           placeholder="Select a person"
           optionFilterProp="children"
-        //   onChange={onChange}
-        //   onSearch={onSearch}
+          onChange={(e) => (questionno = e)}
+          //   onSearch={onSearch}
           filterOption={(input, option) =>
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }
-          options={Questions.map((question) => {
+          options={movie.options.map((qa, i) => {
             return {
-              value: question,
-              label: question,
+              value: i,
+              label: qa.question,
             };
           })}
         />

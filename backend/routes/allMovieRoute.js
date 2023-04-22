@@ -11,7 +11,7 @@ router.post("/save", async (req, res) => {
   });
   try {
     const savedMovie = await newMovie.save();
-    return res.status(200).send({ success: true, movies: savedMovie });
+    return res.status(200).send({ success: true, movie: savedMovie });
   } catch (e) {
     return res.status(400).send({ success: false, msg: e });
   }
@@ -20,7 +20,16 @@ router.post("/save", async (req, res) => {
 // Randomly getting any one of the movie details
 router.get("/getOne", async (req, res) => {
   const data = await movie.aggregate([{ $sample: { size: 1 } }]);
-  console.log(data);
+
+  if (data) {
+    return res.status(200).send({ success: true, movie: data });
+  } else {
+    return res.status(400).send({ success: false, msg: "Data Not Found" });
+  }
+});
+
+router.get("/getAll", async (req, res) => {
+  const data = await movie.find();
   if (data) {
     return res.status(200).send({ success: true, movie: data });
   } else {
