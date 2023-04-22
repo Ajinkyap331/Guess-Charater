@@ -3,8 +3,8 @@ const app = express();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 require("dotenv/config");
-app.use(cors({ origin: true }));
 app.use(express.json());
+app.use(cors());
 
 // checking the connect of the Backend
 app.get("/", (req, res) => {
