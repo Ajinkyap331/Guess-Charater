@@ -5,18 +5,25 @@ import { Timer } from "../Components/Timer";
 import { PlayArea } from "../Components/PlayArea";
 import { Spin } from "antd";
 import axios from "axios";
+import {
+  getAllUsers,
+  getAllDummyMovies,
+  getAllMoviesDetails,
+} from "../api/index";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
 export const Home = () => {
   const [startGame, setStartGame] = useState(true);
-  const [{ movie }, dispatch] = useStateValue();
+  const [{ movie, allUsers, allMovies, allMoviesDetails }, dispatch] =
+    useStateValue();
 
   const getRandomMovieData = async () => {
     console.log("called");
     await axios
-      .get("http://localhost:4000/api/moviename/getone")
+      .get("https://guessthemovie.onrender.com/api/moviename/getone")
       .then((data) => {
+        console.log("I am the one", data);
         dispatch({
           type: actionType.SET_MOVIE,
           movie: data.data.movie[0],
@@ -26,19 +33,41 @@ export const Home = () => {
 
   const getAllMovieData = async () => {
     await axios
-      .get("http://localhost:4000/api/moviename/getAll")
+      .get("https://guessthemovie.onrender.com/api/moviename/getAll")
       .then((data) => {
+        console.log("I am the two", data);
         dispatch({
           type: actionType.SET_ALL_MOVIES,
           allMovies: data.data.movie,
         });
-        console.log(data.data.movie);
       });
   };
 
   useEffect(() => {
     getRandomMovieData();
     getAllMovieData();
+  }, []);
+
+  useEffect(() => {
+    if (!allUsers) {
+      getAllUsers().then((data) => {
+        dispatch({ type: actionType.SET_ALL_USERS, allUsers: data.data });
+      });
+    }
+    if (!allMovies) {
+      getAllDummyMovies().then((data) => {
+        dispatch({ type: actionType.SET_ALL_MOVIES, allMovies: data.movies });
+      });
+    }
+    if (!allMoviesDetails) {
+      getAllMoviesDetails().then((data) => {
+        // console.log(data);
+        dispatch({
+          type: actionType.SET_ALL_MOVIES_DETAILS,
+          allMoviesDetails: data.movie,
+        });
+      });
+    }
   }, []);
 
   return (
