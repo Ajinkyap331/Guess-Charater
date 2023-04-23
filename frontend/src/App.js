@@ -42,7 +42,7 @@ function App() {
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/login" element={<Login setAuth={setAuth} />} />
-      {user && user.user.email === "devmanwar305@gmail.com" && (
+      {user && user.user.email === "guessmovie02@gmail.com" && (
         <Route path="/dashboard/*" element={<Dashboard />} />
       )}
     </Routes>

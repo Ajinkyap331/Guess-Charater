@@ -130,7 +130,7 @@ export const DashboardUserCard = ({ data, index, setHistoryClicked }) => {
       key={index}
       className="relative w-full rounded-md flex items-center justify-between py-4 bg-yellowOverlay cursor-pointer hover:bg-card hover:shadow-md"
     >
-      {user.user.email === "devmanwar305@gmail.com" &&
+      {user.user.email === "guessmovie02@gmail.com" &&
         data.email !== user?.user.email && (
           <motion.div
             whileTap={{ scale: 0.75 }}

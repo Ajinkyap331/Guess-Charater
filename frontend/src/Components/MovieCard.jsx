@@ -105,7 +105,7 @@ export const MovieCard = ({ data, index, type }) => {
           </span>
         )}
       </p>
-      {user.user.email === "devmanwar305@gmail.com" && (
+      {user.user.email === "guessmovie02@gmail.com" && (
         <div className="w-full absolute bottom-2 right-2 flex items-center justify-between px-4">
           <motion.i
             whileTap={{ scale: 0.75 }}

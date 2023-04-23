@@ -64,7 +64,7 @@ export const Navbar = () => {
             exit={{ opacity: 0, y: 50 }}
             className="absolute z-10 top-12 right-8 w-225 p-4 gap-4 bg-white bg-card shadow-lg rounded-lg backdrop-blur-sm flex flex-col"
           >
-            {user?.user?.email === "devmanwar305@gmail.com" && (
+            {user?.user?.email === "guessmovie02@gmail.com" && (
               <NavLink to={"/dashboard/home"}>
                 <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
                   Dashboard
