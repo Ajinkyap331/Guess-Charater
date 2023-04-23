@@ -9,7 +9,8 @@ export const Timer = () => {
   useEffect(() => {
     let t = 1;
     setInterval(() => {
-      timerref.current.innerHTML = "Time Elapsed : " + t + " seconds";
+      if (timerref.current.innerHTML)
+        timerref.current.innerHTML = "Time Elapsed : " + t + " seconds";
       t++;
     }, 1000);
   }, []);
